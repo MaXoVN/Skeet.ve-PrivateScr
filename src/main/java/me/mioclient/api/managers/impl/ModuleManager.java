@@ -36,12 +36,7 @@ import me.mioclient.mod.modules.impl.exploit.FakePearl;
 import me.mioclient.mod.modules.impl.misc.BetterChat;
 import me.mioclient.mod.modules.impl.misc.KillEffects;
 import me.mioclient.mod.modules.impl.misc.UnfocusedCPU;
-import me.mioclient.mod.modules.impl.movement.AntiGlide;
-import me.mioclient.mod.modules.impl.movement.AntiVoid;
-import me.mioclient.mod.modules.impl.movement.FastFall;
-import me.mioclient.mod.modules.impl.movement.FastWeb;
-import me.mioclient.mod.modules.impl.movement.Sprint;
-import me.mioclient.mod.modules.impl.movement.Velocity;
+import me.mioclient.mod.modules.impl.movement.*;
 import me.mioclient.mod.modules.impl.player.FakePlayer;
 import me.mioclient.mod.modules.impl.player.FreeLook;
 import me.mioclient.mod.modules.impl.player.NameProtect;
@@ -217,6 +212,7 @@ extends Mod {
         this.modules.add(new KillEffects());
         this.modules.add(new UnfocusedCPU());
         //MOVEMENT
+        this.modules.add(new InventoryMove());
         this.modules.add(new FastWeb());
         this.modules.add(new FastFall());
         this.modules.add(new Sprint());
