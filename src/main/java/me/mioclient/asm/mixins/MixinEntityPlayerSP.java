@@ -42,10 +42,12 @@ extends AbstractClientPlayer {
     }
 
     @Redirect(method={"move"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/entity/AbstractClientPlayer;move(Lnet/minecraft/entity/MoverType;DDD)V"))
-    public void move(AbstractClientPlayer player, MoverType type, double x, double y, double z) {
-        MoveEvent event = new MoveEvent(x, y, z);
-        MinecraftForge.EVENT_BUS.post((Event)event);
-        super.move(type, event.motionX, event.motionY, event.motionZ);
+    public void move(AbstractClientPlayer player, MoverType moverType, double x, double y, double z) {
+        MoveEvent event = new MoveEvent(0, moverType, x, y, z);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (!event.isCanceled()) {
+            super.move(event.getType(), event.getX(), event.getY(), event.getZ());
+        }
     }
 
     @Inject(method={"onUpdate"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/entity/EntityPlayerSP;onUpdateWalkingPlayer()V", shift=At.Shift.BEFORE)})
