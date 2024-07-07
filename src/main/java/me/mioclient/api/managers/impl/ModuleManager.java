@@ -19,10 +19,9 @@ import me.mioclient.api.events.impl.Render2DEvent;
 import me.mioclient.api.events.impl.Render3DEvent;
 import me.mioclient.api.managers.Managers;
 import me.mioclient.mod.Mod;
-import me.mioclient.mod.gui.screen.MioClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.Category;
 import me.mioclient.mod.modules.Module;
-import me.mioclient.mod.modules.impl.client.ClickGui;
 import me.mioclient.mod.modules.impl.client.Desktop;
 import me.mioclient.mod.modules.impl.client.DiscordRPC;
 import me.mioclient.mod.modules.impl.client.FontMod;
@@ -137,7 +136,7 @@ extends Mod {
     }
 
     public void onKeyInput(int key) {
-        if (key == 0 || !Keyboard.getEventKeyState() || ModuleManager.mc.currentScreen instanceof MioClickGui) {
+        if (key == 0 || !Keyboard.getEventKeyState() || ModuleManager.mc.currentScreen instanceof ClickGui) {
             return;
         }
         this.modules.forEach(module -> {
@@ -186,7 +185,7 @@ extends Mod {
 
     private void registerModules() {
         //CLIENT
-        this.modules.add(new ClickGui());
+        this.modules.add(new me.mioclient.mod.modules.impl.client.ClickGui());
         this.modules.add(new FontMod());
         this.modules.add(new HUD());
         this.modules.add(new FovMod());

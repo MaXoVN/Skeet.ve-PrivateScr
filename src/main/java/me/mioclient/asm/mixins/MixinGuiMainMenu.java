@@ -12,8 +12,7 @@ package me.mioclient.asm.mixins;
 
 import java.io.IOException;
 import me.mioclient.api.util.render.shader.GLSLShader;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.settings.Bind;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -34,17 +33,17 @@ extends GuiScreen {
 
     @Inject(method={"keyTyped"}, at={@At(value="HEAD")}, cancellable=true)
     protected void keyTyped(char typedChar, int keyCode, CallbackInfo info) {
-        if (keyCode == ((Bind)ClickGui.INSTANCE.bind.getValue()).getKey()) {
-            ClickGui.INSTANCE.enable();
+        if (keyCode == ((Bind) me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.bind.getValue()).getKey()) {
+            me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.enable();
             this.isGuiOpen = true;
         }
         if (keyCode == 1) {
-            ClickGui.INSTANCE.disable();
+            me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.disable();
             this.isGuiOpen = false;
         }
         if (this.isGuiOpen) {
             try {
-                MioClickGui.INSTANCE.keyTyped(typedChar, keyCode);
+                ClickGui.INSTANCE.keyTyped(typedChar, keyCode);
             }
             catch (Exception exception) {
                 // empty catch block
@@ -56,21 +55,21 @@ extends GuiScreen {
     @Inject(method={"drawScreen(IIF)V"}, at={@At(value="TAIL")})
     public void drawScreenTailHook(int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.drawScreen(mouseX, mouseY, partialTicks);
+            ClickGui.INSTANCE.drawScreen(mouseX, mouseY, partialTicks);
         }
     }
 
     @Inject(method={"mouseClicked"}, at={@At(value="HEAD")}, cancellable=true)
     public void mouseClickedHook(int mouseX, int mouseY, int mouseButton, CallbackInfo info) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.mouseClicked(mouseX, mouseY, mouseButton);
+            ClickGui.INSTANCE.mouseClicked(mouseX, mouseY, mouseButton);
             info.cancel();
         }
     }
 
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.mouseReleased(mouseX, mouseY, state);
+            ClickGui.INSTANCE.mouseReleased(mouseX, mouseY, state);
         }
     }
 

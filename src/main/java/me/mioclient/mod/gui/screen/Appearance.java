@@ -20,26 +20,26 @@ import me.mioclient.mod.modules.Module;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
 
-public class MioAppearance
+public class Appearance
 extends GuiScreen {
-    private static MioAppearance HUDEditorClickGui;
-    private static MioAppearance INSTANCE;
+    private static Appearance HUDEditorClickGui;
+    private static Appearance INSTANCE;
     private final ArrayList<Component> components = new ArrayList();
 
-    public MioAppearance() {
+    public Appearance() {
         this.setInstance();
         this.load();
     }
 
-    public static MioAppearance getInstance() {
+    public static Appearance getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MioAppearance();
+            INSTANCE = new Appearance();
         }
         return INSTANCE;
     }
 
-    public static MioAppearance getClickGui() {
-        return MioAppearance.getInstance();
+    public static Appearance getClickGui() {
+        return Appearance.getInstance();
     }
 
     private void setInstance() {
@@ -132,7 +132,7 @@ extends GuiScreen {
     }
 
     static {
-        INSTANCE = new MioAppearance();
+        INSTANCE = new Appearance();
     }
 }
 

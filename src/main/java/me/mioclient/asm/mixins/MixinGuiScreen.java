@@ -17,8 +17,7 @@ import me.mioclient.api.managers.Managers;
 import me.mioclient.api.util.Wrapper;
 import me.mioclient.api.util.render.RenderUtil;
 import me.mioclient.mod.gui.click.items.other.Particle;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemShulkerBox;
@@ -63,10 +62,10 @@ extends Gui {
     @Inject(method={"drawScreen"}, at={@At(value="HEAD")})
     public void drawScreenHook(int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         if (Wrapper.mc.currentScreen != null) {
-            if (ClickGui.INSTANCE.particles.getValue().booleanValue()) {
+            if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.particles.getValue().booleanValue()) {
                 this.particles.drawParticles();
             }
-            if (ClickGui.INSTANCE.background.getValue().booleanValue() && Wrapper.mc.world != null) {
+            if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.background.getValue().booleanValue() && Wrapper.mc.world != null) {
                 RenderUtil.drawVGradientRect(0.0f, 0.0f, Managers.TEXT.scaledWidth, Managers.TEXT.scaledHeight, new Color(0, 0, 0, 0).getRGB(), Managers.COLORS.getCurrentWithAlpha(60));
             }
             if (Wrapper.mc.world == null) {
@@ -77,7 +76,7 @@ extends Gui {
 
     @Inject(method={"drawWorldBackground(I)V"}, at={@At(value="HEAD")}, cancellable=true)
     private void drawWorldBackgroundHook(int tint, CallbackInfo info) {
-        if (Wrapper.mc.world != null && ClickGui.INSTANCE.cleanGui.getValue().booleanValue() && !(Wrapper.mc.currentScreen instanceof MioClickGui)) {
+        if (Wrapper.mc.world != null && me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.cleanGui.getValue().booleanValue() && !(Wrapper.mc.currentScreen instanceof ClickGui)) {
             info.cancel();
         }
     }

@@ -10,7 +10,7 @@ import me.mioclient.api.util.math.MathUtil;
 import me.mioclient.api.util.math.Timer;
 import me.mioclient.api.util.render.ColorUtil;
 import me.mioclient.api.util.render.RenderUtil;
-import me.mioclient.mod.gui.screen.MioClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.Category;
 import me.mioclient.mod.modules.Module;
 import me.mioclient.mod.modules.impl.combat.Aura;
@@ -67,7 +67,7 @@ public class HUD extends Module {
             add(new Setting<>("Watermark", true, v -> page.getValue() == Page.ELEMENTS).setParent());
 
     public Setting<String> watermarkString =
-            add(new Setting<>("Text", "Mio", v -> !(mc.currentScreen instanceof MioClickGui || mc.currentScreen instanceof GuiMainMenu)));
+            add(new Setting<>("Text", "Mio", v -> !(mc.currentScreen instanceof ClickGui || mc.currentScreen instanceof GuiMainMenu)));
 
     private final Setting<Boolean> watermarkShort =
             add(new Setting<>("Shorten", false, v -> watermark.isOpen() && page.getValue() == Page.ELEMENTS));
@@ -185,15 +185,15 @@ public class HUD extends Module {
         int width = Managers.TEXT.scaledWidth;
         int height = Managers.TEXT.scaledHeight;
 
-        color = ColorUtil.toRGBA(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue());
+        color = ColorUtil.toRGBA(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getRed(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getGreen(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getBlue());
 
         if (watermark.getValue()) {
             String mioString = watermarkString.getValue() + " ";
             String verColor = watermarkVerColor.getValue() ? "" + ChatFormatting.WHITE : "";
             String verString = verColor + (watermarkShort.getValue() ? Mio.MODVER.substring(0, 4) : Mio.MODVER + "+" + Mio.VERHASH);
 
-            if ((ClickGui.INSTANCE).rainbow.getValue()) {
-                if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
+            if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
+                if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
                     Managers.TEXT.drawString((lowerCase.getValue() ? mioString.toLowerCase() : mioString) + verString, 2.0F, waterMarkY.getValue(), Managers.COLORS.getRainbow().getRGB(), true);
                 } else {
                     if (watermarkVerColor.getValue()) {
@@ -207,7 +207,7 @@ public class HUD extends Module {
             }
         }
 
-        Color color = new Color(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue());
+        Color color = new Color(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getRed(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getGreen(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getBlue());
 
         if (skeetBar.getValue()) {
 
@@ -218,13 +218,13 @@ public class HUD extends Module {
                 RenderUtil.drawHGradientRect((width / 5.0f) * 3.0f, 0, (width / 5.0f) * 4.0f, 1, ColorUtil.toRGBA(255, 255, 255), ColorUtil.toRGBA(255, 180, 255));
                 RenderUtil.drawHGradientRect((width / 5.0f) * 4.0f, 0, width, 1, ColorUtil.toRGBA(255, 180, 255), ColorUtil.toRGBA(0, 180, 255));
             }
-            if (ClickGui.INSTANCE.rainbow.getValue() && ClickGui.INSTANCE.hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING && !jamie.getValue()) {
+            if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() && me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING && !jamie.getValue()) {
                 int[] arrayOfInt = { 1 };
-                RenderUtil.drawHGradientRect(0, 0, width / 2.0f, 1, ColorUtil.rainbow(arrayOfInt[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB(), ColorUtil.rainbow(20 * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB());
-                RenderUtil.drawHGradientRect(width / 2.0f, 0, width, 1, ColorUtil.rainbow(20 * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB(), ColorUtil.rainbow(40 * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB());
+                RenderUtil.drawHGradientRect(0, 0, width / 2.0f, 1, ColorUtil.rainbow(arrayOfInt[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB(), ColorUtil.rainbow(20 * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB());
+                RenderUtil.drawHGradientRect(width / 2.0f, 0, width, 1, ColorUtil.rainbow(20 * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB(), ColorUtil.rainbow(40 * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB());
                 arrayOfInt[ 0 ] = arrayOfInt[ 0 ] + 1;
             }
-            if (!ClickGui.INSTANCE.rainbow.getValue() && !jamie.getValue()) {
+            if (!me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() && !jamie.getValue()) {
                 RenderUtil.drawHGradientRect(0, 0, width / 2.0f, 1, ColorUtil.pulseColor(color, 50, 1000).getRGB(), ColorUtil.pulseColor(color, 200, 1).getRGB());
                 RenderUtil.drawHGradientRect(width / 2.0f, 0, width, 1, ColorUtil.pulseColor(color, 200, 1).getRGB(), ColorUtil.pulseColor(color, 50, 1000).getRGB());
             }
@@ -234,15 +234,15 @@ public class HUD extends Module {
 
         if (pvp.getValue()) drawPvPInfo();
 
-        this.color = ColorUtil.toRGBA(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue());
+        this.color = ColorUtil.toRGBA(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getRed(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getGreen(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getBlue());
         if (idWatermark.getValue()) {
             String mioString = "mioclient";
             String domainString = ChatFormatting.LIGHT_PURPLE + ".me";
 
             float offset = Managers.TEXT.scaledHeight / 2.0f - 30.0f;
 
-            if ((ClickGui.INSTANCE).rainbow.getValue()) {
-                if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
+            if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
+                if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
                     Managers.TEXT.drawString(mioString + domainString, 2.0f, offset, Managers.COLORS.getRainbow().getRGB(), true);
                 } else {
                     Managers.TEXT.drawRollingRainbowString(mioString, 2.0f, offset, true);
@@ -258,13 +258,13 @@ public class HUD extends Module {
         boolean inChat = mc.currentScreen instanceof GuiChat;
         long enabledMods = Managers.MODULES.modules.stream().filter(module -> module.isOn() && module.isDrawn()).count();
         int j = (inChat && !renderingUp.getValue()) ? 14 : 0;
-        int rectColor = jamieArray.getValue() ? ColorUtil.injectAlpha(getJamieColor(counter1[0] + 1), 60) : arrayListRectColor.getValue() ? (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.toRGBA(ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRed(), ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getGreen(), ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getBlue(), 60) : ColorUtil.toRGBA(Managers.COLORS.getRainbow().getRed(), Managers.COLORS.getRainbow().getGreen(), Managers.COLORS.getRainbow().getBlue(), 60)) : ColorUtil.toRGBA((ColorUtil.pulseColor(color, 50, counter1[0]).getRed()), (ColorUtil.pulseColor(color, 50, counter1[0]).getGreen()), (ColorUtil.pulseColor(color, 50, counter1[0]).getBlue()), 60) : ColorUtil.toRGBA(10, 10, 10, 60);
-        int glowColor = jamieArray.getValue() ? ColorUtil.injectAlpha(getJamieColor(counter1[0] + 1), 60) : (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.toRGBA(ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRed(), ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getGreen(), ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getBlue(), 60) : ColorUtil.toRGBA(Managers.COLORS.getRainbow().getRed(), Managers.COLORS.getRainbow().getGreen(), Managers.COLORS.getRainbow().getBlue(), 60)) : ColorUtil.toRGBA((ColorUtil.pulseColor(color, 50, counter1[0]).getRed()), (ColorUtil.pulseColor(color, 50, counter1[0]).getGreen()), (ColorUtil.pulseColor(color, 50, counter1[0]).getBlue()), 60);
+        int rectColor = jamieArray.getValue() ? ColorUtil.injectAlpha(getJamieColor(counter1[0] + 1), 60) : arrayListRectColor.getValue() ? (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.toRGBA(ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRed(), ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getGreen(), ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getBlue(), 60) : ColorUtil.toRGBA(Managers.COLORS.getRainbow().getRed(), Managers.COLORS.getRainbow().getGreen(), Managers.COLORS.getRainbow().getBlue(), 60)) : ColorUtil.toRGBA((ColorUtil.pulseColor(color, 50, counter1[0]).getRed()), (ColorUtil.pulseColor(color, 50, counter1[0]).getGreen()), (ColorUtil.pulseColor(color, 50, counter1[0]).getBlue()), 60) : ColorUtil.toRGBA(10, 10, 10, 60);
+        int glowColor = jamieArray.getValue() ? ColorUtil.injectAlpha(getJamieColor(counter1[0] + 1), 60) : (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.toRGBA(ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRed(), ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getGreen(), ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getBlue(), 60) : ColorUtil.toRGBA(Managers.COLORS.getRainbow().getRed(), Managers.COLORS.getRainbow().getGreen(), Managers.COLORS.getRainbow().getBlue(), 60)) : ColorUtil.toRGBA((ColorUtil.pulseColor(color, 50, counter1[0]).getRed()), (ColorUtil.pulseColor(color, 50, counter1[0]).getGreen()), (ColorUtil.pulseColor(color, 50, counter1[0]).getBlue()), 60);
 
         if (arrayList.getValue()) {
             if (renderingUp.getValue()) {
                 if (inChat && hideInChat.getValue()) {
-                    Managers.TEXT.drawString(enabledMods + " mods enabled", (width - 2 - Managers.TEXT.getStringWidth(enabledMods + " mods enabled")), 2 + j, (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : this.color, true);
+                    Managers.TEXT.drawString(enabledMods + " mods enabled", (width - 2 - Managers.TEXT.getStringWidth(enabledMods + " mods enabled")), 2 + j, (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : this.color, true);
                 } else {
                     if (ordering.getValue() == ModuleManager.Ordering.ABC) {
                         for (int k = 0; k < Managers.MODULES.sortedAbc.size(); k++) {
@@ -293,7 +293,7 @@ public class HUD extends Module {
                                 Gui.drawRect((width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 2, j == 0 ? 0 : (2 + j * 10) - 1,
                                         (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 1, (2 + j * 10) + 10,
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
 
                                 int a = k + 1;
                                 if (a >= Managers.MODULES.sortedAbc.size()) a = k;
@@ -308,13 +308,13 @@ public class HUD extends Module {
                                                         (lowerCase.getValue() ? Managers.TEXT.getStringWidth(nextStr.toLowerCase()) : Managers.TEXT.getStringWidth(nextStr))))) - 1,
                                         (2 + (j + 1) * 10),
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
                             }
 
                             Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                                     (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str))), (2 + j * 10),
                                     jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                            (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                                            (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                             j++;
                             counter1[ 0 ] = counter1[ 0 ] + 1;
                         }
@@ -346,7 +346,7 @@ public class HUD extends Module {
                                 Gui.drawRect((width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 2, j == 0 ? 0 : (2 + j * 10),
                                         (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 1, (2 + j * 10) + 10,
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
 
                                 int a = k + 1;
                                 if (a >= Managers.MODULES.sortedLength.size()) a = k;
@@ -362,13 +362,13 @@ public class HUD extends Module {
                                                         (lowerCase.getValue() ? Managers.TEXT.getStringWidth(nextStr.toLowerCase()) : Managers.TEXT.getStringWidth(nextStr))))) - 1,
                                         (2 + (j + 1) * 10) + 1,
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
                             }
 
                             Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                                     (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str))), (2 + j * 10),
                                     jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                            (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                                            (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                             j++;
                             counter1[ 0 ] = counter1[ 0 ] + 1;
                         }
@@ -376,7 +376,7 @@ public class HUD extends Module {
                 }
             } else {
                 if (inChat && hideInChat.getValue()) {
-                    Managers.TEXT.drawString(enabledMods + " mods enabled", (width - 2 - Managers.TEXT.getStringWidth(enabledMods + " mods enabled")), height - j - 11, (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : this.color, true);
+                    Managers.TEXT.drawString(enabledMods + " mods enabled", (width - 2 - Managers.TEXT.getStringWidth(enabledMods + " mods enabled")), height - j - 11, (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : this.color, true);
                 } else {
                     if (ordering.getValue() == ModuleManager.Ordering.ABC) {
                         for (int k = 0; k < Managers.MODULES.sortedAbc.size(); k++) {
@@ -406,7 +406,7 @@ public class HUD extends Module {
                                 Gui.drawRect((width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 2, (height - j),
                                         (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 1, j == 1 ? height : (height - j) + 10,
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
 
                                 int a = k + 1;
                                 if (a >= Managers.MODULES.sortedAbc.size()) a = k;
@@ -421,13 +421,13 @@ public class HUD extends Module {
                                                         (lowerCase.getValue() ? Managers.TEXT.getStringWidth(nextStr.toLowerCase()) : Managers.TEXT.getStringWidth(nextStr))))) - 1,
                                         j == 1 ? height : (height - j),
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
                             }
 
                             Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                                     (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str))), (height - j),
                                     jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                            (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                                            (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                             counter1[ 0 ] = counter1[ 0 ] + 1;
                         }
                     } else {
@@ -459,7 +459,7 @@ public class HUD extends Module {
                                 Gui.drawRect((width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 2, (height - j),
                                         (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) : Managers.TEXT.getStringWidth(str))) - 1, j == 1 ? height : (height - j) + 10,
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
 
                                 int a = k + 1;
                                 if (a >= Managers.MODULES.sortedLength.size()) a = k;
@@ -475,13 +475,13 @@ public class HUD extends Module {
                                                         (lowerCase.getValue() ? Managers.TEXT.getStringWidth(nextStr.toLowerCase()) : Managers.TEXT.getStringWidth(nextStr))))) - 1,
                                         (height - j),
                                         jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                                (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
+                                                (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB());
                             }
 
                             Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                                     (width - 2 - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str))), (height - j),
                                     jamieArray.getValue() ? getJamieColor(counter1[0] - 2) :
-                                            (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                                            (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                             counter1[ 0 ] = counter1[ 0 ] + 1;
                         }
                     }
@@ -502,7 +502,7 @@ public class HUD extends Module {
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
                             (height - 2 - i),
                             potionColor.getValue() ? potionEffect.getPotion().getLiquidColor() :
-                                    ((ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB()), true);
+                                    ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB()), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
             }
@@ -512,7 +512,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
             if (time.getValue()) {
@@ -521,7 +521,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
             if (tps.getValue()) {
@@ -530,7 +530,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
 
@@ -543,7 +543,7 @@ public class HUD extends Module {
 
                     Managers.TEXT.drawString(lowerCase.getValue() ? str1.toLowerCase() : str1,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str1.toLowerCase()) :  Managers.TEXT.getStringWidth(str1)) - 2),
-                            (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[0] = counter1[0] + 1;
                 }
                 if (fps.getValue()) {
@@ -551,7 +551,7 @@ public class HUD extends Module {
 
                     Managers.TEXT.drawString(lowerCase.getValue() ? fpsText.toLowerCase() : fpsText,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(fpsText.toLowerCase()) :  Managers.TEXT.getStringWidth(fpsText)) - 2),
-                            (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
             } else {
@@ -560,7 +560,7 @@ public class HUD extends Module {
 
                     Managers.TEXT.drawString(lowerCase.getValue() ? fpsText.toLowerCase() : fpsText,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(fpsText.toLowerCase()) :  Managers.TEXT.getStringWidth(fpsText)) - 2),
-                            (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
                 if (ping.getValue()) {
@@ -568,7 +568,7 @@ public class HUD extends Module {
 
                     Managers.TEXT.drawString(lowerCase.getValue() ? str1.toLowerCase() : str1,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str1.toLowerCase()) :  Managers.TEXT.getStringWidth(str1)) - 2),
-                            (height - 2 - i), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (height - 2 - i), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[0] = counter1[0] + 1;
                 }
             }
@@ -582,7 +582,7 @@ public class HUD extends Module {
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
                             (2 + i++ * 10),
                             potionColor.getValue() ? potionEffect.getPotion().getLiquidColor() :
-                                    ((ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB()), true);
+                                    ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB()), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
             }
@@ -591,7 +591,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
             if (time.getValue()) {
@@ -599,7 +599,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
             if (tps.getValue()) {
@@ -607,7 +607,7 @@ public class HUD extends Module {
 
                 Managers.TEXT.drawString(lowerCase.getValue() ? str.toLowerCase() : str,
                         (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str.toLowerCase()) :  Managers.TEXT.getStringWidth(str)) - 2),
-                        (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                        (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                 counter1[ 0 ] = counter1[ 0 ] + 1;
             }
 
@@ -618,26 +618,26 @@ public class HUD extends Module {
                 if (ping.getValue()) {
                     Managers.TEXT.drawString(lowerCase.getValue() ? str1.toLowerCase() : str1,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str1.toLowerCase()) :  Managers.TEXT.getStringWidth(str1)) - 2),
-                            (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[0] = counter1[0] + 1;
                 }
                 if (fps.getValue()) {
                     Managers.TEXT.drawString(lowerCase.getValue() ? fpsText.toLowerCase() : fpsText,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(fpsText.toLowerCase()) :  Managers.TEXT.getStringWidth(fpsText)) - 2),
-                            (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
             } else {
                 if (fps.getValue()) {
                     Managers.TEXT.drawString(lowerCase.getValue() ? fpsText.toLowerCase() : fpsText,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(fpsText.toLowerCase()) :  Managers.TEXT.getStringWidth(fpsText)) - 2),
-                            (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[ 0 ] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[ 0 ] = counter1[ 0 ] + 1;
                 }
                 if (ping.getValue()) {
                     Managers.TEXT.drawString(lowerCase.getValue() ? str1.toLowerCase() : str1,
                             (width - (lowerCase.getValue() ? Managers.TEXT.getStringWidth(str1.toLowerCase()) :  Managers.TEXT.getStringWidth(str1)) - 2),
-                            (2 + i++ * 10), (ClickGui.INSTANCE).rainbow.getValue() ? (((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
+                            (2 + i++ * 10), (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue() ? (((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.ROLLING) ? ColorUtil.rainbow(counter1[0] * (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue().intValue()).getRGB() : Managers.COLORS.getRainbow().getRGB()) : ColorUtil.pulseColor(color, 50, counter1[0]).getRGB(), true);
                     counter1[0] = counter1[0] + 1;
                 }
             }
@@ -669,9 +669,9 @@ public class HUD extends Module {
             yaw = "";
             direction = (lowerCase.getValue() ? "Yaw: ".toLowerCase() : "Yaw: ") + ChatFormatting.WHITE + yawPitch + ChatFormatting.RESET + " " + getFacingDirectionShort();
         }
-        if ((ClickGui.INSTANCE).rainbow.getValue()) {
+        if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
             String rainbowCoords = this.coords.getValue() ? ((lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + ChatFormatting.WHITE + (inHell ? (posX + ", " + posY + ", " + posZ + ChatFormatting.GRAY + " [" + ChatFormatting.WHITE + hposX + ", " + hposZ + ChatFormatting.GRAY + "]" + ChatFormatting.WHITE) : (posX + ", " + posY + ", " + posZ + ChatFormatting.GRAY + " [" + ChatFormatting.WHITE + hposX + ", " + hposZ + ChatFormatting.GRAY + "]"))) : "";
-            if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
+            if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
                 Managers.TEXT.drawString(direction, 2.0F, (height - i - 11 + p), Managers.COLORS.getRainbow().getRGB(), true);
                 Managers.TEXT.drawString(yaw, 2.0F, (height - i - 22 + p), Managers.COLORS.getRainbow().getRGB(), true);
                 Managers.TEXT.drawString(rainbowCoords, 2.0F, (height - i), Managers.COLORS.getRainbow().getRGB(), true);
@@ -708,9 +708,9 @@ public class HUD extends Module {
             if (greeter.getValue())
                 text = text + nameColor + mc.player.getDisplayNameString();
 
-            if ((ClickGui.INSTANCE).rainbow.getValue()) {
+            if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
 
-                if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
+                if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
                     Managers.TEXT.drawString(text + ChatFormatting.RESET + " :')", width / 2.0F - Managers.TEXT.getStringWidth(text) / 2.0F + 2.0F, 2.0F, Managers.COLORS.getRainbow().getRGB(), true);
                 } else {
 
@@ -728,8 +728,8 @@ public class HUD extends Module {
             String lel = greeterText.getValue();
             if (greeter.getValue())
                 lel = greeterText.getValue();
-            if ((ClickGui.INSTANCE).rainbow.getValue()) {
-                if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
+            if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
+                if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
                     Managers.TEXT.drawString(lel, width / 2.0F - Managers.TEXT.getStringWidth(lel) / 2.0F + 2.0F, 2.0F, Managers.COLORS.getRainbow().getRGB(), true);
                 } else {
                     Managers.TEXT.drawRollingRainbowString(lel, width / 2.0F - Managers.TEXT.getStringWidth(lel) / 2.0F + 2.0F, 2.0F, true);
@@ -910,14 +910,14 @@ public class HUD extends Module {
 
                 int textHeight = Managers.TEXT.getFontHeight() + 1;
 
-                if ((ClickGui.INSTANCE).rainbow.getValue()) {
+                if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbow.getValue()) {
 
-                    if ((ClickGui.INSTANCE).hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
-                        Managers.TEXT.drawString(text, 2.0F, ( float ) y, ColorUtil.rainbow((ClickGui.INSTANCE).rainbowDelay.getValue()).getRGB(), true);
+                    if ((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).hudRainbow.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.HudRainbow.STATIC) {
+                        Managers.TEXT.drawString(text, 2.0F, ( float ) y, ColorUtil.rainbow((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue()).getRGB(), true);
                         y += textHeight;
 
                     } else {
-                        Managers.TEXT.drawString(text, 2.0F, ( float ) y, ColorUtil.rainbow((ClickGui.INSTANCE).rainbowDelay.getValue()).getRGB(), true);
+                        Managers.TEXT.drawString(text, 2.0F, ( float ) y, ColorUtil.rainbow((me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE).rainbowDelay.getValue()).getRGB(), true);
                         y += textHeight;
                     }
 

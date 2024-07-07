@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import me.mioclient.api.managers.Managers;
 import me.mioclient.api.util.render.RenderUtil;
-import me.mioclient.mod.gui.screen.MioClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.minecraftforge.fml.common.Mod;
@@ -42,8 +42,8 @@ public class Mio {
     public static void load() {
         LOGGER.info("Loading Mio...");
         Managers.load();
-        if (MioClickGui.INSTANCE == null) {
-            MioClickGui.INSTANCE = new MioClickGui();
+        if (ClickGui.INSTANCE == null) {
+            ClickGui.INSTANCE = new ClickGui();
         }
         LOGGER.info("Mio successfully loaded!\n");
     }

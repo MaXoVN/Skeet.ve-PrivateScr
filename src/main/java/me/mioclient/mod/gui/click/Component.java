@@ -7,8 +7,7 @@ import me.mioclient.api.util.render.RenderUtil;
 import me.mioclient.mod.Mod;
 import me.mioclient.mod.gui.click.items.Item;
 import me.mioclient.mod.gui.click.items.buttons.Button;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -46,7 +45,7 @@ public class Component extends Mod {
         this.x = x;
         this.y = y;
         width = 88;
-        height = ClickGui.INSTANCE.getButtonHeight() + 3;
+        height = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight() + 3;
         this.open = open;
         setupItems();
     }
@@ -69,21 +68,21 @@ public class Component extends Mod {
             totalItemHeight = getTotalItemHeight() - 2.0f;
         }
 
-        RenderUtil.drawLine(x, (float) y - 1.5f, x, (float) (y + height) + totalItemHeight, thickness, ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getRainbow().getRGB() : color);
-        RenderUtil.drawLine(x + width, (float) y - 1.5f, x + width, (float) (y + height) + totalItemHeight, thickness, ClickGui.INSTANCE.rainbow.getValue() ? (Managers.COLORS.getRainbow().getRGB()) : color);
-        RenderUtil.drawLine(x, (float) y - 1.5f, x + width, (float) y - 1.5f, thickness, ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getRainbow().getRGB() : color);
-        RenderUtil.drawLine(x, (float) (y + height) + totalItemHeight, x + width, (float) (y + height) + totalItemHeight, thickness, ClickGui.INSTANCE.rainbow.getValue() ? ColorUtil.rainbow(500).getRGB() : color);
+        RenderUtil.drawLine(x, (float) y - 1.5f, x, (float) (y + height) + totalItemHeight, thickness, me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getRainbow().getRGB() : color);
+        RenderUtil.drawLine(x + width, (float) y - 1.5f, x + width, (float) (y + height) + totalItemHeight, thickness, me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() ? (Managers.COLORS.getRainbow().getRGB()) : color);
+        RenderUtil.drawLine(x, (float) y - 1.5f, x + width, (float) y - 1.5f, thickness, me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getRainbow().getRGB() : color);
+        RenderUtil.drawLine(x, (float) (y + height) + totalItemHeight, x + width, (float) (y + height) + totalItemHeight, thickness, me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() ? ColorUtil.rainbow(500).getRGB() : color);
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drag(mouseX, mouseY );
         counter1 = new int[]{1};
         float totalItemHeight = open ? getTotalItemHeight() - 2.0f : 0.0f;
-        boolean future = ClickGui.INSTANCE.style.getValue() == ClickGui.Style.DOTGOD;
+        boolean future = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.style.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.Style.DOTGOD;
 
-        int color = ColorUtil.toARGB(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue(), future ? 99 : 120);
+        int color = ColorUtil.toARGB(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getRed(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getGreen(), me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.color.getValue().getBlue(), future ? 99 : 120);
 
-        Gui.drawRect(x, y - 1, x + width, y + height - 6, ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getCurrentWithAlpha(future ? 99 : 150) : color);
+        Gui.drawRect(x, y - 1, x + width, y + height - 6, me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() ? Managers.COLORS.getCurrentWithAlpha(future ? 99 : 150) : color);
 
         if (future) {
             drawArrow();
@@ -91,15 +90,15 @@ public class Component extends Mod {
 
         if (open) {
 
-            if (ClickGui.INSTANCE.line.getValue()) {
-                if (ClickGui.INSTANCE.rainbow.getValue() && ClickGui.INSTANCE.rollingLine.getValue()) {
+            if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.line.getValue()) {
+                if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbow.getValue() && me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rollingLine.getValue()) {
 
-                    float hue = ClickGui.INSTANCE.rainbowDelay.getValue();
+                    float hue = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowDelay.getValue();
                     int height = Managers.TEXT.scaledHeight;
                     float tempHue = hue;
 
                     for (int i2 = 0; i2 <= height; ++i2) {
-                        colorMap.put(i2, Color.HSBtoRGB(tempHue, (float) ClickGui.INSTANCE.rainbowSaturation.getValue().intValue() / 255.0f, (float) ClickGui.INSTANCE.rainbowBrightness.getValue().intValue() / 255.0f));
+                        colorMap.put(i2, Color.HSBtoRGB(tempHue, (float) me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowSaturation.getValue().intValue() / 255.0f, (float) me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowBrightness.getValue().intValue() / 255.0f));
 
                         tempHue += 1.0f / (float) height * (float) 5;
                     }
@@ -123,7 +122,7 @@ public class Component extends Mod {
                     float currentHeight = (float) getHeight() - 1.5f;
 
                     for (Item item : getItems()) {
-                        currentColor = ClickGui.INSTANCE.rainbowMode.getValue() != ClickGui.Rainbow.NORMAL ?
+                        currentColor = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowMode.getValue() != me.mioclient.mod.modules.impl.client.ClickGui.Rainbow.NORMAL ?
                                 ColorUtil.rainbow(MathUtil.clamp((int)((float) y + (currentHeight += (float)item.getHeight() + 1.5f)), 0, Managers.TEXT.scaledHeight)) :
                                 new Color(colorMap.get(MathUtil.clamp((int)((float) y + (currentHeight += (float)item.getHeight() + 1.5f)), 0, Managers.TEXT.scaledHeight)));
 
@@ -133,7 +132,7 @@ public class Component extends Mod {
                         GL11.glVertex3f((float) x, ((float) y + currentHeight), 0.0f);
                     }
 
-                    currentColor = ClickGui.INSTANCE.rainbowMode.getValue() != ClickGui.Rainbow.NORMAL ?
+                    currentColor = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowMode.getValue() != me.mioclient.mod.modules.impl.client.ClickGui.Rainbow.NORMAL ?
                             ColorUtil.rainbow(MathUtil.clamp((int)((float)(y + this.height) + totalItemHeight), 0, Managers.TEXT.scaledHeight)) :
                             new Color(colorMap.get(MathUtil.clamp((int)((float)(y + this.height) + totalItemHeight), 0, Managers.TEXT.scaledHeight)));
 
@@ -143,7 +142,7 @@ public class Component extends Mod {
                     GL11.glVertex3f((float)(x + width), ((float)(y + this.height) + totalItemHeight), 0.0f);
 
                     for (Item item : getItems()) {
-                        currentColor = ClickGui.INSTANCE.rainbowMode.getValue() != ClickGui.Rainbow.NORMAL ?
+                        currentColor = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rainbowMode.getValue() != me.mioclient.mod.modules.impl.client.ClickGui.Rainbow.NORMAL ?
                                 ColorUtil.rainbow(MathUtil.clamp((int)((float) y + (currentHeight -= (float)item.getHeight() + 1.5f)), 0, Managers.TEXT.scaledHeight)) :
                                 new Color(colorMap.get(MathUtil.clamp((int)((float) y + (currentHeight -= (float)item.getHeight() + 1.5f)), 0, Managers.TEXT.scaledHeight)));
 
@@ -168,14 +167,14 @@ public class Component extends Mod {
                     drawOutline(1.0f, color);
                 }
             }
-            if (ClickGui.INSTANCE.rect.getValue()) {
-                int rectColor = ClickGui.INSTANCE.colorRect.getValue() ? Managers.COLORS.getCurrentWithAlpha(30) : ColorUtil.toARGB(10, 10, 10, 30);
+            if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.rect.getValue()) {
+                int rectColor = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.colorRect.getValue() ? Managers.COLORS.getCurrentWithAlpha(30) : ColorUtil.toARGB(10, 10, 10, 30);
 
                 RenderUtil.drawRect(x, (float) y + 12.5f, x + width, (float) (y + height) + totalItemHeight, rectColor);
             }
         }
 
-        Managers.TEXT.drawStringWithShadow(getName(), (float) x + 3.0f, (float) y - 4.0f - (float) MioClickGui.INSTANCE.getTextOffset(), -1);
+        Managers.TEXT.drawStringWithShadow(getName(), (float) x + 3.0f, (float) y - 4.0f - (float) ClickGui.INSTANCE.getTextOffset(), -1);
 
         if (open) {
             float y = (float) (getY() + getHeight()) - 3.0f;
@@ -184,7 +183,7 @@ public class Component extends Mod {
                 counter1[0] = counter1[0] + 1;
                 if (item.isHidden()) continue;
                 item.setLocation((float) x + 2.0f, y);
-                item.setHeight(ClickGui.INSTANCE.getButtonHeight());
+                item.setHeight(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight());
                 item.setWidth(getWidth() - 4);
                 item.drawScreen(mouseX, mouseY, partialTicks);
                 y += (float) item.getHeight() + 1.5f;
@@ -216,7 +215,7 @@ public class Component extends Mod {
         if (mouseButton == 0 && isHovering(mouseX, mouseY)) {
             x2 = x - mouseX;
             y2 = y - mouseY;
-            MioClickGui.INSTANCE.getComponents().forEach(component -> {
+            ClickGui.INSTANCE.getComponents().forEach(component -> {
                 if (component.drag) {
                     component.drag = false;
                 }

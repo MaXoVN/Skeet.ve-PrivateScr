@@ -19,28 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import me.mioclient.api.managers.Managers;
 import me.mioclient.api.util.render.ColorUtil;
-import me.mioclient.api.util.render.RenderUtil;
 import me.mioclient.mod.gui.click.Component;
 import me.mioclient.mod.gui.click.items.Item;
-import me.mioclient.mod.gui.click.items.buttons.BindButton;
-import me.mioclient.mod.gui.click.items.buttons.BooleanButton;
-import me.mioclient.mod.gui.click.items.buttons.Button;
-import me.mioclient.mod.gui.click.items.buttons.EnumButton;
-import me.mioclient.mod.gui.click.items.buttons.PickerButton;
-import me.mioclient.mod.gui.click.items.buttons.Slider;
-import me.mioclient.mod.gui.click.items.buttons.StringButton;
-import me.mioclient.mod.gui.screen.MioClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.Module;
-import me.mioclient.mod.modules.impl.client.ClickGui;
 import me.mioclient.mod.modules.impl.client.FontMod;
 import me.mioclient.mod.modules.settings.Bind;
 import me.mioclient.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
 public class ModuleButton
@@ -95,8 +84,8 @@ extends Button {
                 for (Item item : this.items) {
                     Component.counter1[0] = Component.counter1[0] + 1;
                     if (!item.isHidden()) {
-                        item.setLocation(this.x + 1.0f, this.y + (height += (float)ClickGui.INSTANCE.getButtonHeight()));
-                        item.setHeight(ClickGui.INSTANCE.getButtonHeight());
+                        item.setLocation(this.x + 1.0f, this.y + (height += (float) me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight()));
+                        item.setHeight(me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight());
                         item.setWidth(this.width - 9);
                         item.drawScreen(mouseX, mouseY, partialTicks);
                         if (item instanceof PickerButton && ((PickerButton)item).setting.open) {
@@ -110,7 +99,7 @@ extends Button {
                 }
             }
         }
-        if (this.isHovering(mouseX, mouseY) && ClickGui.INSTANCE.isOn()) {
+        if (this.isHovering(mouseX, mouseY) && me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.isOn()) {
             String description = (Object)ChatFormatting.GRAY + this.module.getDescription();
             Gui.drawRect((int)0, (int)(ModuleButton.mc.currentScreen.height - 11), (int)(Managers.TEXT.getStringWidth(description) + 2), (int)ModuleButton.mc.currentScreen.height, (int)ColorUtil.injectAlpha(new Color(-1072689136), 200).getRGB());
             assert (ModuleButton.mc.currentScreen != null);
@@ -119,11 +108,11 @@ extends Button {
     }
 //gear here // future// newstyle
     public void drawGear() {
-        if (ClickGui.INSTANCE.gear.getValue().booleanValue()) {
+        if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.gear.getValue().booleanValue()) {
             String color = this.module.isOn() ? "" : "" + (Object)ChatFormatting.GRAY;
             String gear = this.subOpen ? "-" : "+";
             float x = this.x - 1.5f + (float)this.width - 7.4f;
-            Managers.TEXT.drawStringWithShadow(color + gear, x + (FontMod.INSTANCE.isOn() && gear.equals("-") ? 1.0f : 0.0f), this.y - 2.2f - (float)MioClickGui.INSTANCE.getTextOffset(), -1);
+            Managers.TEXT.drawStringWithShadow(color + gear, x + (FontMod.INSTANCE.isOn() && gear.equals("-") ? 1.0f : 0.0f), this.y - 2.2f - (float) ClickGui.INSTANCE.getTextOffset(), -1);
         }
     }
 
@@ -160,7 +149,7 @@ extends Button {
     @Override
     public int getHeight() {
         if (this.subOpen) {
-            int height = ClickGui.INSTANCE.getButtonHeight() - 1;
+            int height = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight() - 1;
             for (Item item : this.items) {
                 if (item.isHidden()) continue;
                 height += item.getHeight() + 1;
@@ -172,7 +161,7 @@ extends Button {
             }
             return height + 2;
         }
-        return ClickGui.INSTANCE.getButtonHeight() - 1;
+        return me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight() - 1;
     }
 
     public Module getModule() {

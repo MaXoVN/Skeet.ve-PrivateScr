@@ -6,7 +6,6 @@
  */
 package me.mioclient.mod.modules.impl.client;
 
-import me.mioclient.mod.gui.screen.MioAppearance;
 import me.mioclient.mod.modules.Category;
 import me.mioclient.mod.modules.Module;
 import net.minecraft.client.gui.GuiScreen;
@@ -19,12 +18,12 @@ extends Module {
 
     @Override
     public void onEnable() {
-        mc.displayGuiScreen((GuiScreen)MioAppearance.getClickGui());
+        mc.displayGuiScreen((GuiScreen) me.mioclient.mod.gui.screen.Appearance.getClickGui());
     }
 
     @Override
     public void onTick() {
-        if (!(Appearance.mc.currentScreen instanceof MioAppearance)) {
+        if (!(me.mioclient.mod.modules.impl.client.Appearance.mc.currentScreen instanceof me.mioclient.mod.gui.screen.Appearance)) {
             this.disable();
         }
     }

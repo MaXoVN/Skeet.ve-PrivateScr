@@ -10,12 +10,6 @@
  */
 package me.mioclient.mod.gui.click.items.buttons;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-import me.mioclient.api.managers.Managers;
-import me.mioclient.api.util.render.RenderUtil;
-import me.mioclient.mod.gui.click.items.buttons.Button;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
 import me.mioclient.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;

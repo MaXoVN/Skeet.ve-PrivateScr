@@ -14,9 +14,7 @@ package me.mioclient.mod.gui.click.items.buttons;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.mioclient.api.managers.Managers;
 import me.mioclient.api.util.render.RenderUtil;
-import me.mioclient.mod.gui.click.items.buttons.Button;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -48,9 +46,9 @@ extends Button {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         RenderUtil.drawRect(this.x, this.y, this.x + (float)this.width + 7.4f, this.y + (float)this.height - 0.5f, this.getState() ? (!this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentWithAlpha(120) : Managers.COLORS.getCurrentWithAlpha(200)) : (!this.isHovering(mouseX, mouseY) ? 0x11555555 : -2007673515));
         if (this.isListening) {
-            Managers.TEXT.drawStringWithShadow(this.currentString.getString() + Managers.TEXT.getIdleSign(), this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
+            Managers.TEXT.drawStringWithShadow(this.currentString.getString() + Managers.TEXT.getIdleSign(), this.x + 2.3f, this.y - 1.7f - (float) ClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
         } else {
-            Managers.TEXT.drawStringWithShadow((this.setting.getName().equals("Buttons") ? "Buttons " : (this.setting.getName().equals("Prefix") ? "Prefix  " + (Object)ChatFormatting.GRAY : "")) + this.setting.getValue(), this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
+            Managers.TEXT.drawStringWithShadow((this.setting.getName().equals("Buttons") ? "Buttons " : (this.setting.getName().equals("Prefix") ? "Prefix  " + (Object)ChatFormatting.GRAY : "")) + this.setting.getValue(), this.x + 2.3f, this.y - 1.7f - (float) ClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
         }
     }
 
@@ -99,7 +97,7 @@ extends Button {
 
     @Override
     public int getHeight() {
-        return ClickGui.INSTANCE.getButtonHeight() - 1;
+        return me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.getButtonHeight() - 1;
     }
 
     @Override

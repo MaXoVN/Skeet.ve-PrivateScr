@@ -6,7 +6,7 @@ package me.mioclient.mod;
 import java.util.ArrayList;
 import java.util.List;
 import me.mioclient.api.util.Wrapper;
-import me.mioclient.mod.gui.screen.MioClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.Module;
 import me.mioclient.mod.modules.settings.Setting;
 
@@ -25,8 +25,8 @@ implements Wrapper {
     public Setting add(Setting setting) {
         setting.setMod(this);
         this.settings.add(setting);
-        if (this instanceof Module && Mod.mc.currentScreen instanceof MioClickGui) {
-            MioClickGui.INSTANCE.updateModule((Module)this);
+        if (this instanceof Module && Mod.mc.currentScreen instanceof ClickGui) {
+            ClickGui.INSTANCE.updateModule((Module)this);
         }
         return setting;
     }

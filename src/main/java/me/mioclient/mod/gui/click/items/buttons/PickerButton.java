@@ -30,9 +30,7 @@ import me.mioclient.api.managers.Managers;
 import me.mioclient.api.util.render.ColorUtil;
 import me.mioclient.api.util.render.RenderUtil;
 import me.mioclient.mod.commands.Command;
-import me.mioclient.mod.gui.click.items.buttons.Button;
-import me.mioclient.mod.gui.screen.MioClickGui;
-import me.mioclient.mod.modules.impl.client.ClickGui;
+import me.mioclient.mod.gui.screen.ClickGui;
 import me.mioclient.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -67,7 +65,7 @@ extends Button {
     //ezfix
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        boolean dotgod = ClickGui.INSTANCE.style.getValue() == ClickGui.Style.DOTGOD;
+        boolean dotgod = me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.style.getValue() == me.mioclient.mod.modules.impl.client.ClickGui.Style.DOTGOD;
         RenderUtil.drawRect(
                 this.x,
                 this.y,
@@ -109,7 +107,7 @@ extends Button {
                         ? this.getName().toLowerCase()
                         : this.getName(),
                 this.x + 2.3f,
-                this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+                this.y - 1.7f - (float) ClickGui.INSTANCE.getTextOffset(),
                 dotgod && this.setting.hasBoolean && this.setting.booleanValue
                         ? Managers.COLORS.getCurrentGui(240)
                         : (dotgod

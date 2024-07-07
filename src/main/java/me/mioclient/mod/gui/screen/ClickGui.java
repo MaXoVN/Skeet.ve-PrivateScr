@@ -27,22 +27,21 @@ import me.mioclient.mod.gui.click.items.other.Particle;
 import me.mioclient.mod.gui.click.items.other.Snow;
 import me.mioclient.mod.modules.Category;
 import me.mioclient.mod.modules.Module;
-import me.mioclient.mod.modules.impl.client.ClickGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
 
-public class MioClickGui
+public class ClickGui
 extends GuiScreen {
-    public static MioClickGui INSTANCE;
+    public static ClickGui INSTANCE;
     private final ArrayList<Snow> snow = new ArrayList();
     private final Particle.Util particles = new Particle.Util(300);
     Minecraft mc = Minecraft.getMinecraft();
     private final ArrayList<Component> components = new ArrayList();
 
-    public MioClickGui() {
+    public ClickGui() {
         this.onLoad();
     }
 
@@ -89,10 +88,10 @@ extends GuiScreen {
         } else {
             Gui.drawRect((int)0, (int)0, (int)1920, (int)1080, (int)ColorUtil.injectAlpha(new Color(-1072689136), 150).getRGB());
         }
-        if (ClickGui.INSTANCE.background.getValue().booleanValue() && this.mc.currentScreen instanceof MioClickGui && this.mc.world != null) {
+        if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.background.getValue().booleanValue() && this.mc.currentScreen instanceof ClickGui && this.mc.world != null) {
             RenderUtil.drawVGradientRect(0.0f, 0.0f, Managers.TEXT.scaledWidth, Managers.TEXT.scaledHeight, new Color(0, 0, 0, 0).getRGB(), Managers.COLORS.getCurrentWithAlpha(60));
         }
-        if (ClickGui.INSTANCE.particles.getValue().booleanValue()) {
+        if (me.mioclient.mod.modules.impl.client.ClickGui.INSTANCE.particles.getValue().booleanValue()) {
             this.particles.drawParticles();
         }
         this.components.forEach(components -> components.drawScreen(mouseX, mouseY, partialTicks));

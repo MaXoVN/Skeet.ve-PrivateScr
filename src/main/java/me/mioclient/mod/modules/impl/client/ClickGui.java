@@ -5,13 +5,11 @@ import java.awt.Color;
 import me.mioclient.api.events.impl.ClientEvent;
 import me.mioclient.api.managers.Managers;
 import me.mioclient.mod.commands.Command;
-import me.mioclient.mod.gui.screen.MioClickGui;
 import me.mioclient.mod.modules.Category;
 import me.mioclient.mod.modules.Module;
 import me.mioclient.mod.modules.settings.Setting;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -46,23 +44,23 @@ public class ClickGui extends Module {
     public ClickGui() {
         super("ClickGui", "Opens the ClickGui.", Category.CLIENT, true);
         this.keys = new KeyBinding[]{
-                ClickGui.mc.gameSettings.keyBindForward,
-                ClickGui.mc.gameSettings.keyBindBack,
-                ClickGui.mc.gameSettings.keyBindLeft,
-                ClickGui.mc.gameSettings.keyBindRight,
-                ClickGui.mc.gameSettings.keyBindJump,
-                ClickGui.mc.gameSettings.keyBindSprint
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindForward,
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindBack,
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindLeft,
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindRight,
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindJump,
+                me.mioclient.mod.modules.impl.client.ClickGui.mc.gameSettings.keyBindSprint
         };
         INSTANCE = this;
     }
 
     @Override
     public void onEnable() {
-        if (ClickGui.mc.world != null) {
-            mc.displayGuiScreen(MioClickGui.INSTANCE);
+        if (me.mioclient.mod.modules.impl.client.ClickGui.mc.world != null) {
+            mc.displayGuiScreen(me.mioclient.mod.gui.screen.ClickGui.INSTANCE);
         }
         if (this.blur.getValue()) {
-            ClickGui.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+            me.mioclient.mod.modules.impl.client.ClickGui.mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
         }
     }
 
@@ -74,14 +72,14 @@ public class ClickGui extends Module {
 
     @Override
     public void onTick() {
-        if (!(ClickGui.mc.currentScreen instanceof MioClickGui) && !(ClickGui.mc.currentScreen instanceof GuiMainMenu)) {
+        if (!(me.mioclient.mod.modules.impl.client.ClickGui.mc.currentScreen instanceof me.mioclient.mod.gui.screen.ClickGui) && !(me.mioclient.mod.modules.impl.client.ClickGui.mc.currentScreen instanceof GuiMainMenu)) {
             this.disable();
         }
     }
 
     @Override
     public void onUpdate() {
-        if (this.guiMove.getValue() && !(ClickGui.mc.currentScreen instanceof GuiChat)) {
+        if (this.guiMove.getValue() && !(me.mioclient.mod.modules.impl.client.ClickGui.mc.currentScreen instanceof GuiChat)) {
             for (KeyBinding key : this.keys) {
                 KeyBinding.setKeyBindState(key.getKeyCode(), Keyboard.isKeyDown(key.getKeyCode()));
             }
