@@ -185,12 +185,14 @@ extends Mod {
     }
 
     private void registerModules() {
+        //CLIENT
         this.modules.add(new ClickGui());
         this.modules.add(new FontMod());
         this.modules.add(new HUD());
         this.modules.add(new FovMod());
         this.modules.add(new DiscordRPC());
         this.modules.add(new Desktop());
+        //RENDER
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());
         this.modules.add(new CrystalChams());
@@ -200,22 +202,27 @@ extends Mod {
         this.modules.add(new ESP());
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
+        //COMBAT
         this.modules.add(new Aura());
         this.modules.add(new Criticals());
         this.modules.add(new Blocker());
+        //PLAYER
         this.modules.add(new Replenish());
         this.modules.add(new FakePlayer());
         this.modules.add(new FreeLook());
         this.modules.add(new NameProtect());
+        //MISC
         this.modules.add(new BetterChat());
         this.modules.add(new KillEffects());
         this.modules.add(new UnfocusedCPU());
+        //MOVEMENT
         this.modules.add(new FastWeb());
         this.modules.add(new FastFall());
         this.modules.add(new Sprint());
         this.modules.add(new AntiVoid());
         this.modules.add(new AntiGlide());
         this.modules.add(new Velocity());
+        //EXPLOIT
         this.modules.add(new FakePearl());
         this.modules.add(new Clip());
     }
