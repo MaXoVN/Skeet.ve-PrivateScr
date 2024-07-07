@@ -30,6 +30,7 @@ import me.mioclient.mod.modules.impl.client.HUD;
 import me.mioclient.mod.modules.impl.combat.Aura;
 import me.mioclient.mod.modules.impl.combat.Blocker;
 import me.mioclient.mod.modules.impl.combat.Criticals;
+import me.mioclient.mod.modules.impl.combat.PacketExp;
 import me.mioclient.mod.modules.impl.exploit.Clip;
 import me.mioclient.mod.modules.impl.exploit.FakePearl;
 import me.mioclient.mod.modules.impl.misc.BetterChat;
@@ -202,6 +203,7 @@ extends Mod {
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
         //COMBAT
+        this.modules.add(new PacketExp());
         this.modules.add(new Aura());
         this.modules.add(new Criticals());
         this.modules.add(new Blocker());
